@@ -20,4 +20,8 @@ Para probar el proyecto desde el frontend puedes usar el siguiente usuario por d
 Usuario: Admin2
 Contraseña: admin
 
+Para probar el proyecto desde el backend estoy trabajando en la documentacion de la api con swagger
+https://productos-stock-backend.vercel.app/api-docs/
+
+
 
