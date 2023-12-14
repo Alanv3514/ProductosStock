@@ -47,18 +47,11 @@ exports.getCategory = async (req,res)=>{
         }
         
     }
-<<<<<<< HEAD
 
-    exports.deleteCategory = async (req, res) => {
-        try {            
-            const _id=req.params.id;
-            const response = await category.deleteCategory(_id);
-=======
     exports.deleteCategory = async (req, res) => {
         try {            
             const id=req.paramas.id;
             const response = await category.deleteCategory(id);
->>>>>>> dde2716cf012010ca6455e7c93594a896571e97a
             return res.status(200).send(response)
         } catch (error) {
             log.error("CategoryController", error);
