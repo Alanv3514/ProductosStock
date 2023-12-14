@@ -71,7 +71,7 @@ const deleteCategory = async (id)=>{
     try {
         const deleteC = await categorias.findOneAndDelete({name: id});
         console.log(deleteC);
-        return {message: "Productos deleted", data: null}
+        return {message: "Productos deleted", data: deleteC}
     } catch (error) {
         throw error;
     }

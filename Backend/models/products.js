@@ -83,6 +83,7 @@ const updateProduct = async (id, name, description, brand, amount, category )=>{
                 category: category
             }           
         })
+        console.log(category);
         return {message: "Producto updated", data: null}
     } catch (error) {
         throw error

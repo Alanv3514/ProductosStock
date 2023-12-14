@@ -1,6 +1,6 @@
 const category = require("../models/category");
 const log = require("../lib/log");
-
+const products = require("../models/products");
 
 exports.getAllCategories = async (req,res)=>{
     try {
@@ -51,7 +51,19 @@ exports.getCategory = async (req,res)=>{
     exports.deleteCategory = async (req, res) => {
         try {            
             const id=req.params.id;
-            const response = await category.deleteCategory(id);
+            const response= await category.deleteCategory(id);
+             if (response.data) {
+                const productos= await products.getAllProducts();
+                const productosFiltrados = productos.data.filter(producto=>producto.category===id);
+                
+                if (productosFiltrados.length>0){
+                    productosFiltrados.forEach(async producto=>{
+                        const idProducto=producto._id.toString().split('"')[0];
+                        await products.updateProduct(idProducto, producto.name, producto.description, producto.brand, producto.amount, "");
+                    })
+                }
+            }
+
             return res.status(200).send(response)
         } catch (error) {
             log.error("CategoryController", error);
