@@ -65,10 +65,21 @@ const updateCategory = async (name, description) => {
         throw err
     })
 }
-
+const deleteCategory = async (id)=>{
+    const db = Connection.db;
+    const categorias = db.collection("categorias");
+    try {
+        const deleteC = await categorias.findOneAndDelete({_id: new ObjectId(id)});
+        console.log(deleteC);
+        return {message: "Productos deleted", data: null}
+    } catch (error) {
+        throw error;
+    }
+}
 module.exports = {
     getAllCategories,
     getCategory,
     addCategory,
-    updateCategory
+    updateCategory,
+    deleteCategory
 }
