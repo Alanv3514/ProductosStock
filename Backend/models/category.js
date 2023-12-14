@@ -44,7 +44,7 @@ const updateCategory = async (name, description) => {
     const db = Connection.db;
     const categorias = db.collection("categorias");
     await categorias.findOneAndUpdate({
-        _id: id
+        _id: name
     },
     {
         $set:{
