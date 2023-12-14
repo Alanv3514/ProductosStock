@@ -4,7 +4,7 @@ import './App.css'
 import NewCategory from './pages/category/new-category/NewCategory';
 import NewProducts from './pages/product/new-product/NewProduct';
 import Header from './components/Header/Header';
-import Footer from './components/footer/Footer';
+import Footer from './components/Footer/Footer';
 import ListProducts from './pages/product/list-product/ListProducts';
 import SideBar from './components/SideBar/SideBar';
 import ListCategory from './pages/category/list-category/ListCategory';
