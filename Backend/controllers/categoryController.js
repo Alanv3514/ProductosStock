@@ -50,7 +50,7 @@ exports.getCategory = async (req,res)=>{
 
     exports.deleteCategory = async (req, res) => {
         try {            
-            const id=req.paramas.id;
+            const id=req.params.id;
             const response = await category.deleteCategory(id);
             return res.status(200).send(response)
         } catch (error) {
