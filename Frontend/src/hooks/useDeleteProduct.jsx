@@ -1,11 +1,11 @@
 import axios from 'axios';
-import {  useState } from 'react';
 
 const useDeleteProduct = () => {
    
 
     const deleteProduct = (id) => {    
-            axios.delete('http://localhost:3000/api/products/delete/' + id )
+        console.log("deleteo esto:"+id);
+            axios.delete(import.meta.env.VITE_API_URL+'products/delete/' + id )
             .then(res=>{
                 return res.data.message
             })
