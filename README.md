@@ -11,7 +11,7 @@ Este es un mini proyecto de Control de Stock. Con este proyecto, puedes realizar
 ## Enlaces
 
 - Frontend: https://productos-stock-frontend.vercel.app/
-- Backend: https://vercel.com/alan-vinzons-projects/productos-stock-frontend
+- Backend: https://productos-stock-backend.vercel.app/
 
 ## Cómo probar el proyecto
 
