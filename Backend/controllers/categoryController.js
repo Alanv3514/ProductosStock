@@ -35,14 +35,27 @@ exports.getCategory = async (req,res)=>{
         }
     }
 
+
     exports.updateCategory = async (req, res) => {
         try {            
-            const id = req.params.id
             const { name, description }= req.body;
-            const response = await category.updateCategoryCategory(name, description);
+            const response = await category.updateCategory(name, description);
             return res.status(200).send(response)
         } catch (error) {
             log.error("CategoryController", error);
             return res.status(500).send({message: "Error en servidor", error: error});
         }
+        
+    }
+
+    exports.deleteCategory = async (req, res) => {
+        try {            
+            const _id=req.params.id;
+            const response = await category.deleteCategory(_id);
+            return res.status(200).send(response)
+        } catch (error) {
+            log.error("CategoryController", error);
+            return res.status(500).send({message: "Error en servidor", error: error});
+        }
+        
     }

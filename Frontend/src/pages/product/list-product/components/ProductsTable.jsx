@@ -86,7 +86,6 @@ const ProductsTable = () => {
           const handleDeleteProduct = () => {
               deleteProduct(selectedProduct.id);
               handleClose();
-
           }
 
         useEffect(

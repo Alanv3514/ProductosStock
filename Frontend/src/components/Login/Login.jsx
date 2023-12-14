@@ -1,7 +1,7 @@
 import  { Fragment, useState } from 'react'
-import { Button, TextField} from "@mui/material"
+import { Button, TextField, DialogTitle} from "@mui/material"
 import axios from "axios"
-
+import './Login.css'
 import useAuth from '../../hooks/useAuth'
 import {  useNavigate } from "react-router-dom";
 
@@ -35,10 +35,11 @@ const LoginForm = ()=>{
         })
     }
     return(
-        <Fragment>
+        <Fragment className="mx-auto " >
+          
             <div className='LoginForm' style={{ maxWidth: "400px", padding: "0 15px" }}>
             <form className="form-signin" onSubmit={onSubmit}>   
-           
+            <DialogTitle>Iniciar Sesión</DialogTitle>
             <TextField
               margin="normal"
               required

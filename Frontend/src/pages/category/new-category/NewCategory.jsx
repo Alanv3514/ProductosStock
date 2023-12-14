@@ -15,7 +15,7 @@ const NewCategory =  ()=> {
 
   const submit = ()=>{ 
       
-      axios.post( 'http://localhost:3000/api/category/create',
+      axios.post( import.meta.env.VITE_API_URL +'category/create',
       {        
         name:categoryName, 
         description:categoryDescription
@@ -25,7 +25,7 @@ const NewCategory =  ()=> {
 
   return (
     <>
-    <div className="container">
+    <div className="container flex justify-center">
         <div className="container-form">
             <TextField
              id="category-name"

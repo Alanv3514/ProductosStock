@@ -1,11 +1,22 @@
 import { TextField, Button } from '@mui/material'
 import "./UpdateCategory.css"
-import { useState } from 'react'
+import { useEffect, useState, useLayoutEffect } from 'react'
 import axios from 'axios';
-const UpdateCategory =  ()=> { // Change component name to UpdateCategory
+const UpdateCategory =  ({category, funcionEnProps,funcionClose})=> { // Change component name to UpdateCategory
     const [categoryName, setCategoryName]= useState("");
     const [categoryDescription, setCategoryDescription]= useState("");
-    
+
+useEffect(() => {
+    if(category){
+        setCategoryName(category.name);
+        setCategoryDescription(category.description);
+    }
+}, [])
+    useLayoutEffect(() => {
+        return () => {
+            funcionEnProps();
+        };
+    }, []);
     const changeName = (e)=>{    
         setCategoryName(e.target.value);
     }
@@ -15,12 +26,13 @@ const UpdateCategory =  ()=> { // Change component name to UpdateCategory
 
     const submit = ()=>{ 
             
-            axios.put( 'http://localhost:3000/api/category/update', // Change POST to PUT
-            {        
+            axios.put( import.meta.env.VITE_API_URL +'category/update', // Change POST to PUT
+            {       
+                id:categoryName,
                 name:categoryName, 
                 description:categoryDescription
             })
-            .then(response => console.log(response));
+            .then(response => funcionClose());
     }
 
     return (
@@ -40,7 +52,7 @@ const UpdateCategory =  ()=> { // Change component name to UpdateCategory
                         <Button 
                         variant="contained"
                         onClick={submit}
-                        >Actualizar Categoria</Button> // Change button label to "Actualizar Categoria"
+                        >Actualizar Categoria</Button>
                 </div>
         </div>
         </>

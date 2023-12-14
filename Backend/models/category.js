@@ -1,5 +1,5 @@
 const { Connection } = require('./db');
-
+const ObjectId = require('mongodb').ObjectId;
 
 
 const getAllCategories = async(req, res)=>{
@@ -44,7 +44,7 @@ const updateCategory = async (name, description) => {
     const db = Connection.db;
     const categorias = db.collection("categorias");
     await categorias.findOneAndUpdate({
-        _id: id
+        _id: name
     },
     {
         $set:{
@@ -65,10 +65,21 @@ const updateCategory = async (name, description) => {
         throw err
     })
 }
-
+const deleteCategory = async (id)=>{
+    const db = Connection.db;
+    const categorias = db.collection("categorias");
+    try {
+        const deleteC = await categorias.findOneAndDelete({name: id});
+        console.log(deleteC);
+        return {message: "Productos deleted", data: null}
+    } catch (error) {
+        throw error;
+    }
+}
 module.exports = {
     getAllCategories,
     getCategory,
     addCategory,
-    updateCategory
+    updateCategory,
+    deleteCategory
 }

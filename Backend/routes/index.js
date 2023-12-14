@@ -11,7 +11,7 @@ router.post("/category/create",categoryController.addCategory)
 router.get("/category/list",verifyToken, categoryController.getAllCategories);
 router.get("/category/search/:id", categoryController.getCategory);
 router.put("/category/update/", categoryController.updateCategory);
-
+router.delete("/category/delete/:id", categoryController.deleteCategory);
 // Rutas Productos
 router.get("/products/list", productController.getAllProducts);
 router.post("/products/create", productController.addProducts);

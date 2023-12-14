@@ -21,13 +21,13 @@ const { pathname } = useLocation();
           <Header />
         </section>
       )}
-     <div className="flex">
+     <div className="flex justify-center items-center">
      {pathname !== "/" && (
-        <section id="SideBar" className='flex flex-shrink-0 w-52'>
+        <section id="SideBar" className='flex flex-shrink-0 w-52 justify-center items-center'>
           <SideBar/>
         </section>
       )}
-     <section id="Main" className='flex-col grow items-center'>
+     <section id="Main" className='flex-col grow justify-center items-center'>
         <Routes>
               <Route path='/' element={<Login/>} />              
               <Route element={<RequireAuth/>}>
