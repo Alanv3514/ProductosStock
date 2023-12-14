@@ -39,7 +39,7 @@ exports.getCategory = async (req,res)=>{
         try {            
             const id = req.params.id
             const { name, description }= req.body;
-            const response = await category.updateCategoryCategory(name, description);
+            const response = await category.updateCategory(name, description);
             return res.status(200).send(response)
         } catch (error) {
             log.error("CategoryController", error);
