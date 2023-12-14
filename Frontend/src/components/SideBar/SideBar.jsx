@@ -15,16 +15,12 @@ import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 import { Collapse } from '@mui/material';
 import ProductsMenu from './components/ProductsMenu';
 import CategoryMenu from './components/CategoryMenu';
-import BrandMenu from './components/BrandMenu';
-import StockMenu from './components/StockMenu';
 
 
 
 const SideBar = ()=> {  
   const [productsMenu, setProductsMenu] = useState(false)
   const [categoryMenu, setCategoryMenu] = useState(false)
-  const [brandMenu, setBrandMenu] = useState(false)
-  const [stockMenu, setStockMenu] = useState(false)
 
   const openProductsMenu = ()=>{
     setProductsMenu(!productsMenu);
@@ -34,13 +30,7 @@ const SideBar = ()=> {
     setCategoryMenu(!categoryMenu);
   }
 
-  const openBrandMenu = ()=>{
-    setBrandMenu(!brandMenu);
-  }
 
-  const openStockMenu = ()=>{
-    setStockMenu(!stockMenu);
-  }
   return (
     <>
     <div id='SideBar' className='min-h-screen z-[90] shadow-md w-52'>
@@ -73,32 +63,7 @@ const SideBar = ()=> {
             </Collapse>
           </ListItem>
           <Divider />
-          <ListItem disablePadding className="flex-col w-full">
-            <ListItemButton className="flex-col w-full" onClick={openBrandMenu}>
-              <ListItemIcon className="justify-center">
-                <LocalOfferOutlinedIcon className="hover:fill-[#3223f4]" sx={{fontSize: '2rem',}} />
-              </ListItemIcon>
-              <ListItemText primary="Marcas" />
-              {brandMenu ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={brandMenu} timeout="auto" unmountOnExit>
-              <BrandMenu/>
-            </Collapse>
-          </ListItem>
-          <Divider />
-          <ListItem disablePadding className="flex-col w-full">
-            <ListItemButton className="flex-col w-full" onClick={openStockMenu}>
-              <ListItemIcon className="justify-center">
-              <InventoryOutlinedIcon className="hover:fill-[#3223f4]" sx={{fontSize: '2rem',}} />
-              </ListItemIcon>
-              <ListItemText primary="Stock" />
-              {stockMenu ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={stockMenu} timeout="auto" unmountOnExit>
-              <StockMenu/>
-            </Collapse>
-          </ListItem>
-          <Divider />
+
         </List>
     </Box>  
     </div>    

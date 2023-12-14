@@ -5,9 +5,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import useDeleteProduct from '../../../../hooks/useDeleteProduct';
-import useUpdateProduct from '../../../../hooks/useUpdateProduct';
 import UpdateProduct from '../../update-product/UpdateProduct';
-
+import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
+import UpdateStockProduct from '../../stock-product/StockProduct';
 
 
 const ProductsTable = () => {
@@ -21,6 +21,14 @@ const ProductsTable = () => {
         { field: 'actions', headerName: 'Acciones', flex: 0.3,
             renderCell: (params) =>(
                 <Box style={{ display: "flex", justifyContent: "center" }}>
+                    <Tooltip title="Agregar Stock">
+                    <IconButton  onClick={()=>{
+                            handleClickStock(params.row);
+                        }}>
+                        <NoteAddOutlinedIcon
+                         sx={{fontSize: '1.5rem',} } />
+                        </IconButton>
+                    </Tooltip>
                     <Tooltip title="Editar">
                         <IconButton
                         onClick={()=>{
@@ -46,38 +54,41 @@ const ProductsTable = () => {
           ];
 
           const { deleteProduct } = useDeleteProduct()
-          const { updateProduct } = useUpdateProduct()
+          const [data, setData] = useState([]);
+          const [open, setOpen] = useState(false);
+          const [mode, setMode] = useState("delete"); 
+  
+          const [reload, setReload] = useState(false);
+          const [selectedProduct, setSelectedProduct] = useState({});
+
+          
           const handleClickOpen = (item) => {
             setSelectedProduct(item);
-            console.log(selectedProduct);
             setOpen(true);
           };
-        
+          
+          const handleClickStock = (item) => {
+            setMode("stock");
+            setSelectedProduct(item);
+            setOpen(true);
+            };
+
           const handleClose = () => {
+            setReload(!reload);
             setOpen(false);
+            //window.location.reload();
           };
 
-
-        const [data, setData] = useState([]);
-        const [open, setOpen] = useState(false);
-        const [mode, setMode] = useState("delete"); // ["delete", "update"
-
-        const [reload, setReload] = useState(false);
-        const [selectedProduct, setSelectedProduct] = useState({});
-
-
-        const handledeleteProduct = () => {
-            
-            deleteProduct(selectedProduct.id);
-            setOpen(false);
+          const switchState = () => {
             setReload(!reload);
-        }
-        const handleUpdateProduct = () => {
-            updateProduct(selectedProduct.id);
-            setOpen(false);
-            setReload(!reload);
+          }
+  
+          const handleDeleteProduct = () => {
+              deleteProduct(selectedProduct.id);
+              handleClose();
 
-        }
+          }
+
         useEffect(
             ()=>{
                 axios.get( import.meta.env.VITE_API_URL + 'products/list')
@@ -97,8 +108,9 @@ const ProductsTable = () => {
                 .catch(err=>{
                     throw err;
                 })
-            }, [reload]
+            }, [reload, open]
         );
+
         return (
             <>
             
@@ -128,29 +140,28 @@ const ProductsTable = () => {
             <DialogContent>
                 <DialogContentText>
                     {mode === "delete" && (
-                        <Button onClick={handledeleteProduct} autoFocus>
-                            Esta seguro que desea eliminar este producto?
-                        </Button>
+                        <>¿Estas seguro que deseas eliminar el producto {selectedProduct.name}?</>
                     )}
                     {mode === "update" && (
-                        <UpdateProduct product={selectedProduct}/>
+                        <UpdateProduct product={selectedProduct} funcionEnProps={switchState} funcionClose={handleClose}/>
+                    )}
+                    {mode === "stock" && (
+                        <UpdateStockProduct product={selectedProduct} funcionEnProps={switchState} funcionClose={handleClose} />
                     )}
                 </DialogContentText>
             </DialogContent>
 
             <DialogActions>
-                <Button autoFocus onClick={handleClose}>
-                    No
-                </Button>
+
                 {mode === "delete" && (
-                    <Button onClick={handledeleteProduct} autoFocus>
+                <>
+                    <Button autoFocus onClick={handleClose}>
+                                    No
+                    </Button>
+                    <Button onClick={handleDeleteProduct}  autoFocus>
                         Aceptar
                     </Button>
-                )}
-                {mode === "update" && (
-                    <Button onClick={handleUpdateProduct} autoFocus>
-                        Aceptar
-                    </Button>
+                </>
                 )}
             </DialogActions>
         </Dialog>

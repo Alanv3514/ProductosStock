@@ -10,7 +10,6 @@ import SideBar from './components/SideBar/SideBar';
 import ListCategory from './pages/category/list-category/ListCategory';
 import Login from './components/Login/Login';
 import RequireAuth from './components/RequireAuth/RequireAuth';
-import UpdateCategory from './pages/category/update-category/UpdateCategory';
 
 const App = ()=> {
 const { pathname } = useLocation();

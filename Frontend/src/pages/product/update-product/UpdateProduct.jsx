@@ -1,10 +1,9 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import "./UpdateProduct.css"
 import useCategory from "../../../hooks/useCategory";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import useUpdateProduct from "../../../hooks/useUpdateProduct"; // Import the useUpdateProduct hook
-
-const UpdateProduct = ({product}) => {
+const UpdateProduct = ({product, funcionEnProps,funcionClose}) => {
     const categories = useCategory([]);
     const [category, setCategory]= useState("");
     const [name, setName]= useState("");
@@ -13,7 +12,7 @@ const UpdateProduct = ({product}) => {
     const [amount, setAmount]= useState("");
     const [productId, setProductId] = useState(""); // Create a productId state variable and initialize it with an empty string
     const { updateProduct } = useUpdateProduct(); // Destructure the updateProduct function from the hook
-
+    
     useEffect(() => {
         if(product){
             setCategory(product.category);
@@ -24,6 +23,12 @@ const UpdateProduct = ({product}) => {
             setProductId(product.id); // Set the productId state variable with the product id
         }
     }, [])
+
+    useLayoutEffect(() => {
+        return () => {
+            funcionEnProps();
+        };
+    }, []);
 
     const changeCategorySelect = (e) => {        
         setCategory(e.target.value);
@@ -45,18 +50,20 @@ const UpdateProduct = ({product}) => {
         setAmount(e.target.value);
     }
 
-    const sendForm = () => {
-        updateProduct({ // Call the updateProduct function with the updated values
-            id: productId,
-            category: category,
-            name: name,
-            description: description,
-            brand: brand,
-            amount: amount
-        });
-        //recargo la pagina
-        window.location.reload();
-    }
+        const sendForm = () => {
+            const dataSended = {
+                id: productId,
+                category: category,
+                name: name,
+                description: description,
+                brand: brand,
+                amount: amount
+            };
+            console.log("dataSemd:" + dataSended.name);
+            updateProduct(dataSended);
+            funcionClose();
+
+        }
 
     return ( 
         <>
